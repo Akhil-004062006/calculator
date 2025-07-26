@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 350px;
+      width: 100%;
+      text-align: center;
+    }
+    .calculator h2 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0 20px;
+      font-size: 1.2em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    button {
+      flex: 1 1 40%;
+      padding: 15px 0;
+      font-size: 1.3em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #4a90e2;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #357abd;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #222;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Simple Calculator</h2>
+    <input type="number" id="num1" placeholder="Enter first number" />
+    <input type="number" id="num2" placeholder="Enter second number" />
+
+    <div class="buttons">
+      <button id="addBtn">Add (+)</button>
+      <button id="subBtn">Subtract (-)</button>
+      <button id="mulBtn">Multiply (×)</button>
+      <button id="divBtn">Divide (÷)</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const num1Input = document.getElementById('num1');
+    const num2Input = document.getElementById('num2');
+    const resultDiv = document.getElementById('result');
+
+    function calculate(operation) {
+      const num1 = parseFloat(num1Input.value);
+      const num2 = parseFloat(num2Input.value);
+
+      if (isNaN(num1) || isNaN(num2)) {
+        resultDiv.textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      let result;
+
+      switch (operation) {
+        case 'add':
+          result = num1 + num2;
+          break;
+        case 'subtract':
+          result = num1 - num2;
+          break;
+        case 'multiply':
+          result = num1 * num2;
+          break;
+        case 'divide':
+          if (num2 === 0) {
+            resultDiv.textContent = "Error: Cannot divide by zero.";
+            return;
+          }
+          result = num1 / num2;
+          break;
+        default:
+          resultDiv.textContent = "Unknown operation.";
+          return;
+      }
+
+      resultDiv.textContent = `Result: ${result}`;
+    }
+
+    document.getElementById('addBtn').addEventListener('click', () => calculate('add'));
+    document.getElementById('subBtn').addEventListener('click', () => calculate('subtract'));
+    document.getElementById('mulBtn').addEventListener('click', () => calculate('multiply'));
+    document.getElementById('divBtn').addEventListener('click', () => calculate('divide'));
+  </script>
+
+</body>
+</html>
